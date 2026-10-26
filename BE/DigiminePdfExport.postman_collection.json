@@ -1,0 +1,110 @@
+{
+	"info": {
+		"_postman_id": "digimine-pdf-export-poc",
+		"name": "Digimine PDF Export POC",
+		"description": "Unified Export API: PDF, Excel (.xlsx), and HTML via a single POST /api/export endpoint.\n\nBase URL: http://localhost:5000",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:5000",
+			"type": "string"
+		}
+	],
+	"item": [
+		{
+			"name": "Unified Export API",
+			"item": [
+				{
+					"name": "Export → Excel (.xlsx Multi-Sheet)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"format\": \"Excel\",\n  \"html\": \"<div data-widget=\\\"KPI Summary\\\"><h2>KPI Summary</h2><table><thead><tr><th>Metric</th><th>Value</th></tr></thead><tbody><tr><td>Total Material</td><td>245,800 t</td></tr></tbody></table></div><div data-widget=\\\"Haulage Detail\\\"><h2>Haulage Detail</h2><table><thead><tr><th>#</th><th>Date</th></tr></thead><tbody><tr><td>1</td><td>2025-10-01</td></tr></tbody></table></div>\",\n  \"reportName\": \"Daily_Mining_Report\",\n  \"siteTimeZoneId\": \"Asia/Kolkata\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/export",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "export"]
+						},
+						"description": "Extracts widgets marked with [data-widget] into separate Excel sheets."
+					}
+				},
+				{
+					"name": "Export → PDF (.pdf)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"format\": \"Pdf\",\n  \"html\": \"<div style=\\\"padding: 40px; font-family: sans-serif;\\\"><h1>Daily Mining Report</h1><p>Exported via Playwright headless PDF engine.</p></div>\",\n  \"reportName\": \"Daily_Mining_Report\",\n  \"siteTimeZoneId\": \"Asia/Kolkata\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/export",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "export"]
+						},
+						"description": "Exports HTML directly to a print-ready PDF using headless Chromium."
+					}
+				},
+				{
+					"name": "Export → Offline HTML (.html)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"format\": \"Html\",\n  \"html\": \"<div><h1>Daily Mining Report</h1><p>Self-contained HTML export.</p></div>\",\n  \"reportName\": \"Daily_Mining_Report\",\n  \"siteTimeZoneId\": \"Asia/Kolkata\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/export",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "export"]
+						},
+						"description": "Exports a self-contained offline HTML file."
+					}
+				},
+				{
+					"name": "Export Public URL → PDF",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"format\": \"Pdf\",\n  \"url\": \"https://en.wikipedia.org/wiki/Mining\",\n  \"reportName\": \"Wikipedia_Mining\",\n  \"siteTimeZoneId\": \"UTC\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/export",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "export"]
+						},
+						"description": "Exports any public web page URL to PDF via Playwright."
+					}
+				}
+			]
+		}
+	]
+}

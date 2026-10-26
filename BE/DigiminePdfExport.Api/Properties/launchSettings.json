@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "DigiminePdfExport.Api": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:64762;http://localhost:64763"
+    }
+  }
+}
